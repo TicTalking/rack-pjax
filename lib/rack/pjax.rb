@@ -13,7 +13,8 @@ module Rack
       return [status, headers, body] unless pjax?(env)
 
       headers = HeaderHash.new(headers)
-
+      controller_name = request_parameters[:controller]
+      action_name = request_parameters[:action]
       new_body = ""
       body.each do |b|
         b.force_encoding('UTF-8') if RUBY_VERSION > '1.9.0'
@@ -24,8 +25,8 @@ module Rack
         new_body << begin
           if container
             title = parsed_body.at("title")
-
-            "%s%s" % [title, container.inner_html]
+            script = Nokogiri::HTML('<script>$("body").data("controller-name", "#{controller_name}").data("action-name", "#{action_name}").attr("id", "#{controller_name}-#{action_name}")</script>')
+            "%s%s%s" % [title, container.inner_html, script]
           else
             b
           end
