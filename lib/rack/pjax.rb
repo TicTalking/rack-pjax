@@ -28,7 +28,7 @@ module Rack
         new_body << begin
           if container
             title = parsed_body.at("title")
-            script = '<script>$("body").data({"controller-name":"'+controller_name+'","action-name":"'+action_name+'"}).attr({"id":"'+controller_name +'","class":"'+klass+'")</script>'
+            script = '<script>$("body").data({"controller-name":"'+controller_name+'","action-name":"'+action_name+'"}).attr({"id":"'+controller_name +'","class":"'+klass+'"})</script>'
             "%s%s%s" % [title, container.inner_html, script]
           else
             b
