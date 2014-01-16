@@ -13,8 +13,11 @@ module Rack
       return [status, headers, body] unless pjax?(env)
 
       headers = HeaderHash.new(headers)
-      controller_name = request_parameters[:controller]
-      action_name = request_parameters[:action]
+      controller_name = '' #controller.controller_name
+      action_name = '' # controller.action_name
+      
+      p params[]
+
       klass = controller_name + ' ' + action_name
 
       new_body = ""
